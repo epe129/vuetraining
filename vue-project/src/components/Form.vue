@@ -2,7 +2,7 @@
   <div>
     <h1>{{ title }}</h1>
     <br/>
-    <form>
+    <form @submit.prevent="registerAnswer">
       <p>nimi: <input type="text" required v-model="name"></p>
       <p>salasana: <input type="password" v-model="password"></p>
       <button type="submit">Log in</button>
@@ -11,11 +11,30 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
+      name: '',
+      password: '',
+      nameSubmitted: '',
+      passwordSubmitted: '',
       title: 'Rekisteröidy'
-    };
+    }
+  },
+  methods: {
+    registerAnswer() {
+      if(this.name || this.password) {
+        this.nameSubmitted = this.name;
+        this.passwordSubmitted = this.password;
+        console.log(this.nameSubmitted, " ", this.passwordSubmitted)
+      }
+      const path = 'http://127.0.0.1:5000/dataentry'
+      axios.post(path, {
+        name: this.nameSubmitted,
+        password: this.passwordSubmitted,
+      })
+    }
   }
 };
 </script>
