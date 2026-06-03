@@ -1,13 +1,12 @@
 <template>
-  <div>
-    <h1>{{ title }}</h1>
-    <br/>
-    <form @submit.prevent="registerAnswer">
-      <p>nimi: <input type="text" required v-model="name"></p>
-      <p>salasana: <input type="password" v-model="password"></p>
-      <button type="submit">Log in</button>
-    </form>
-  </div>
+  <h1>{{ title }}</h1>
+  <br/>
+  <form @submit.prevent="registerAnswer">
+    <p>nimi: <input type="text" required v-model="name"></p>
+    <p>salasana: <input type="password" v-model="password"></p>
+    <button type="submit" class="b">Rekisteröidy</button>
+  </form>
+  <a><router-link to="/kirjaudu">kirjaudu</router-link></a>
 </template>
 
 <script>
@@ -29,7 +28,7 @@ export default {
         this.passwordSubmitted = this.password;
         console.log(this.nameSubmitted, " ", this.passwordSubmitted)
       }
-      const path = 'http://127.0.0.1:5000/dataentry'
+      const path = 'http://127.0.0.1:5000/rekisteröidy'
       axios.post(path, {
         name: this.nameSubmitted,
         password: this.passwordSubmitted,
@@ -57,7 +56,7 @@ export default {
     box-sizing: border-box;
   }
 
-  button {
+  .b {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -68,11 +67,17 @@ export default {
     cursor: pointer;
   }
 
-  button:hover {
+  .b:hover {
     background-color: #45a049;
   }
 
   p {
     color: black;
+  }
+
+  a { 
+    margin-left: 110px;
+    color: white;
+    cursor: pointer;
   }
 </style>
