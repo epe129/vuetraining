@@ -16,22 +16,20 @@ export default {
     return {
       name: '',
       password: '',
-      nameSubmitted: '',
-      passwordSubmitted: '',
       title: 'Rekisteröidy'
     }
   },
   methods: {
     registerAnswer() {
-      if(this.name || this.password) {
-        this.nameSubmitted = this.name;
-        this.passwordSubmitted = this.password;
-        console.log(this.nameSubmitted, " ", this.passwordSubmitted)
-      }
       const path = 'http://127.0.0.1:5000/rekisteröidy'
       axios.post(path, {
-        name: this.nameSubmitted,
-        password: this.passwordSubmitted,
+        name: this.name,
+        password: this.password,
+      })
+      .then(response => console.log(response))
+      .catch(error => {
+        this.errorMessage = error.message;
+        console.error("There was an error!", error);
       })
     }
   }
